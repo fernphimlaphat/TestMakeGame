@@ -274,46 +274,70 @@ void AmmoMove()
 
 	do
 	{
-		do {
+		
 			if (_kbhit())
 			{
 				m = _getch();
 
 				if (m == ' ')
 				{
+					y = y - 1;
 					for (y; y >= 0; y--)
 					{
-						if (y == 19) {
-							y = y - 1;
-							for (y; y >= 0; y--)
-							{
-								Ammo(x, y);
+						Ammo(x, y);
+						
+						Sleep(100);
 
-								Sleep(100);
-							}
-						}
-
-						if (y == 18)
+						for(int i = y-2;i >= 0;i--)
 						{
-							for (i; i >= 0; i--)
-							{
-								Ammo(x, i-1);
-								Ammo(x, i);
-								Sleep(100);
-							}
+							Ammo(x, y - 3);
+							deleteX(x + 1, y);
+							deleteX(x + 2, y+1);
+	
+						}
+						deleteX(x + 2, 5);
+
+						for (int i = y - 3; i >= 0; i--)
+						{
+							Ammo(x, y - 5);
+							deleteX(x + 1, y);
+						}
+						deleteX(x + 4, 4);
+						deleteX(x + 4, 5);
+						deleteX(x + 3, 4);
+
+						for (int i = y - 4; i >= 0; i--)
+						{
+							Ammo(x, y - 7);
+							deleteX(x + 1, y);
+						}
+						deleteX(x + 3, 5);
+						deleteX(x + 3, 6);
+						deleteX(x + 5, 4);
+
+						for (int i = y - 5; i >= 0; i--)
+						{
+							Ammo(x, y - 9);
+							deleteX(x + 1, y);
+
 						}
 
-
-
-
-					}
-
-
-
+						deleteX(x + 7, 4);
+						deleteX(x + 10, 4);
+						deleteX(x + 13, 4);
+						deleteX(x + 3, 8);
+						deleteX(x + 3, 6);
+						deleteX(x + 3, 7);
+						
+						if (y == 0)
+						{
+							deleteX(x, y);
+						}
+					}	
 				}
-
 			}
-			/*else
+
+			else
 			{
 
 				if (_kbhit())
@@ -322,28 +346,78 @@ void AmmoMove()
 
 					if (m == ' ')
 					{
-						for (y = 19; y >= 0; y--)
+					  y = i-1;
+					for (y; y >= 0; y--)
+					{
+						Ammo(x, y);
+
+						Sleep(100);
+
+						for(int i = y-2;i >= 0;i--)
 						{
-							Ammo(x, y);
-							Sleep(50);
+							Ammo(x, y - 3);
+							deleteX(x + 1, y);
+							deleteX(x + 2, y+1);
 
+						}
+						deleteX(x + 2, 5);
 
-							if (y == 0)
-							{
-								deleteX(x, y);
-							}
+						for (int i = y - 3; i >= 0; i--)
+						{
+							Ammo(x, y - 5);
+							deleteX(x + 1, y);
+						}
+						deleteX(x + 4, 4);
+						deleteX(x + 4, 5);
+						deleteX(x + 3, 4);
 
+						for (int i = y - 4; i >= 0; i--)
+						{
+							Ammo(x, y - 7);
+							deleteX(x + 1, y);
+						}
+						deleteX(x + 3, 5);
+						deleteX(x + 3, 6);
+						deleteX(x + 5, 4);
 
+						for (int i = y - 5; i >= 0; i--)
+						{
+							Ammo(x, y - 9);
+							deleteX(x + 1, y);
 
 						}
 
+						deleteX(x + 7, 4);
+						deleteX(x + 10, 4);
+						deleteX(x + 13, 4);
+						deleteX(x + 3, 8);
+						deleteX(x + 3, 6);
+						deleteX(x + 3, 7);
+
+						if (y == 0)
+						{
+							deleteX(x, y);
+						}
+					}
 
 					}
 				}
-			}*/
-		} while (_kbhit() == 5);
+			}
 
-		} while (m != x);
+
+					
+
+					
+				
+
+
+
+				
+
+		
+	
+} while (m != x);
+			
 
 	}
 
