@@ -208,7 +208,7 @@ void automove()
 	char m = ' ';
 	do
 	{
-		if(_kbhit)
+		if(_kbhit())
 		{
 			m = _getch();  
 			if (m == 'a') { 
@@ -256,18 +256,20 @@ void automove()
 	} while (m != 'x');
 }
 
-void Ammo(int x, int y)
+void Ammo(int x, int i)
 {
-	deleteX(x, y - 1);
-	drawAmmo(x, y);
-	deleteX(x, y + 1);
+	setcolor(5, 3);
+
+	drawAmmo(x, i);
+	deletecolor(0, 0);
+	deleteX(x, i + 1);
 }
 
 void AmmoMove()
 {
+	int x = 20, y = 20;
+	int i = y;
 	char m = ' ';
-	int x = 20, y = 20, i = y;
-	int c = 0;
 
 	drawAmmo(x, y);
 	deleteX(x, y);
@@ -281,14 +283,14 @@ void AmmoMove()
 
 				if (m == ' ')
 				{
-					y = y - 1;
+					y = y - 2;
 					for (y; y >= 0; y--)
 					{
 						Ammo(x, y);
 						
 						Sleep(100);
 
-						for(int i = y-2;i >= 0;i--)
+						for(int i = y-3;i >= 0;i--)
 						{
 							Ammo(x, y - 3);
 							deleteX(x + 1, y);
@@ -297,7 +299,7 @@ void AmmoMove()
 						}
 						deleteX(x + 2, 5);
 
-						for (int i = y - 3; i >= 0; i--)
+						for (int i = y - 4; i >= 0; i--)
 						{
 							Ammo(x, y - 5);
 							deleteX(x + 1, y);
@@ -306,7 +308,7 @@ void AmmoMove()
 						deleteX(x + 4, 5);
 						deleteX(x + 3, 4);
 
-						for (int i = y - 4; i >= 0; i--)
+						for (int i = y - 5; i >= 0; i--)
 						{
 							Ammo(x, y - 7);
 							deleteX(x + 1, y);
@@ -315,11 +317,10 @@ void AmmoMove()
 						deleteX(x + 3, 6);
 						deleteX(x + 5, 4);
 
-						for (int i = y - 5; i >= 0; i--)
+						for (int i = y - 6; i >= 0; i--)
 						{
 							Ammo(x, y - 9);
 							deleteX(x + 1, y);
-
 						}
 
 						deleteX(x + 7, 4);
@@ -346,14 +347,14 @@ void AmmoMove()
 
 					if (m == ' ')
 					{
-					  y = i-1;
+					  y = i-2;
 					for (y; y >= 0; y--)
 					{
 						Ammo(x, y);
 
 						Sleep(100);
 
-						for(int i = y-2;i >= 0;i--)
+						for(int i = y-3;i >= 0;i--)
 						{
 							Ammo(x, y - 3);
 							deleteX(x + 1, y);
@@ -362,7 +363,7 @@ void AmmoMove()
 						}
 						deleteX(x + 2, 5);
 
-						for (int i = y - 3; i >= 0; i--)
+						for (int i = y - 4; i >= 0; i--)
 						{
 							Ammo(x, y - 5);
 							deleteX(x + 1, y);
@@ -371,7 +372,7 @@ void AmmoMove()
 						deleteX(x + 4, 5);
 						deleteX(x + 3, 4);
 
-						for (int i = y - 4; i >= 0; i--)
+						for (int i = y - 5; i >= 0; i--)
 						{
 							Ammo(x, y - 7);
 							deleteX(x + 1, y);
@@ -380,11 +381,10 @@ void AmmoMove()
 						deleteX(x + 3, 6);
 						deleteX(x + 5, 4);
 
-						for (int i = y - 5; i >= 0; i--)
+						for (int i = y - 6; i >= 0; i--)
 						{
 							Ammo(x, y - 9);
 							deleteX(x + 1, y);
-
 						}
 
 						deleteX(x + 7, 4);
@@ -403,31 +403,165 @@ void AmmoMove()
 					}
 				}
 			}
+	} while (m != x);
+}
 
+void MoveAmmo(int x ,int y ,int i)
+{
+	
+	for (i = y - 2; i >= 0; i--)
+	{
+		auto_left(x, y);
 
-					
+		Ammo(x, i - 12);
 
-					
-				
+		deleteXY(x+2,y);
 
+		Ammo(x, i - 9);
+		deleteXY(x + 4, y);
 
+		Ammo(x, i - 6);
+		deleteXY(x + 6, y);
 
-				
+		Ammo(x, i - 3);
+		deleteXY(x + 8, y);
+
+		Ammo(x, i);
+		deleteXY(x + 10, y);
+
+		Sleep(1);
+
 
 		
-	
-} while (m != x);
-			
+			deletecolor(0, 0);
+		
+
+
+		if (i == 0)
+		{
+
+			deleteX(x, 0);
+		}
+		
+
 
 	}
+}
+
+
+
+
+
+void Ship()
+{
+
+
+	int x = 20, y = 20, i = y;
+	setcolor(6, 4);
+	draw(x, y);
+	
+	char m = ' ';
+
+
+	do
+	{
+		if (_kbhit)
+		{
+			m = _getch();
+			if (m == 'a') {
+				
+				
+				for (x; x >= 0; x--)
+				{
+
+					auto_left(x, y);
+
+					if (x == 0)
+					{
+						setcolor(6, 4);
+						draw(x, y);
+					}
+
+					if (_kbhit())
+					{
+						m = _getch();
+						if (m == 's') { setcolor(6, 4); draw(x, y);  break; }
+						else if (m == ' ')
+						{
+							MoveAmmo(x, y, i);
+								
+							if (x == 0)
+							{	setcolor(6, 4);
+								draw(x, y);
+							}
+						}
+
+					}
+				}
+				
+				
+			}
+
+			else if (m == 'd')
+			{
+				for (x; x <= 80; x++)
+				{
+					auto_right(x, y);
+					if (x == 80)
+					{
+						setcolor(6, 4);
+						draw(x + 1, y);
+					}
+
+					if (_kbhit())
+					{
+						m = _getch();
+						if (m == 's') 
+						{setcolor(6, 4); draw(x, y); break;}
+
+						else if (m == ' ')
+						{
+							MoveAmmo(x, y, i);
+
+							if (x == 80)
+							{
+								setcolor(6, 4);
+								draw(x, y);
+							}
+						}
+					
+						
+
+					}
+
+				}
+			}
+
+			else if (m == ' ')
+				{
+					MoveAmmo(x, y, i);
+					setcolor(6, 4);
+					draw(x, y);
+				}
+				
+			
+
+		}
+
+	} while (m != 'x');
+
+
+
+}
 
 
 int main (){
 	//setcolor(6,4);
-	AmmoMove();
 	//automove();
+	//automove();
+	//AmmoMove();
 	//move1();
-
+	Ship();
 	//testX();
 	//gotoxy(10,5);
 
